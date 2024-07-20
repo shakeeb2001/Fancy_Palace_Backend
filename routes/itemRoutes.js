@@ -10,7 +10,7 @@ const heaterJugController = require('../controllers/HeaterJugController');
 const MetalPlasticController = require('../controllers/MetalPlasticController');
 const CeremicController = require('../controllers/CeremicController');
 const TorchController = require('../controllers/TorchController');
-
+ 
 
 
 router.get('/ricecooker', RicecookerController.getRicecookerItems);
