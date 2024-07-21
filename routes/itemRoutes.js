@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Sale = require('../models/Sale');
 const RicecookerController = require('../controllers/RicecookerController');
 const ironController = require('../controllers/IronController');
 const soundSystemController = require('../controllers/SoundSystemController');
@@ -64,5 +65,43 @@ router.get('/torch', TorchController .getTorchItems);
 router.get('/torch/:code',TorchController.getTorchItemByCode);
 router.post('/torch', TorchController.addTorchItem);  // Ensure this route exists
 router.patch('/torch/:code/decrease', TorchController.decreaseTorchQuantity);
+
+router.post('/sale', async (req, res) => {
+    const { totalAmount } = req.body;
+    
+    const sale = new Sale({ totalAmount });
+    try {
+      await sale.save();
+      res.status(201).json(sale);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  });
+  
+  // Route to get all sales
+  router.get('/sales', async (req, res) => {
+    try {
+      const sales = await Sale.find();
+      res.status(200).json(sales);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+  
+  // Route to find sales by date range
+  router.get('/sales/date', async (req, res) => {
+    const { startDate, endDate } = req.query;
+    try {
+      const sales = await Sale.find({
+        date: {
+          $gte: new Date(startDate),
+          $lte: new Date(endDate)
+        }
+      });
+      res.status(200).json(sales);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  });
 
 module.exports = router;
