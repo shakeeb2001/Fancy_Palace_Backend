@@ -13,6 +13,7 @@ const TorchController = require('../controllers/TorchController');
  
 
 
+
 router.get('/ricecooker', RicecookerController.getRicecookerItems);
 router.get('/ricecooker/:code', RicecookerController.getRicecookerItemByCode);
 router.post('/ricecooker', RicecookerController.addRicecookerItem);  // Ensure this route exists
