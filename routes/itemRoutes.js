@@ -46,7 +46,7 @@ router.patch('/gascooker/:code/decrease', gasCookerController.decreaseGascookerI
 
 router.get('/heaterjug', heaterJugController.getHeaterJugItems);
 router.get('/heaterjug/:code', heaterJugController.getHeaterJugByCode);
-router.post('/heaterjug', heaterJugController.addHeaterJugItem);  // Ensure this route exists
+router.post('/heaterjug', heaterJugController.addHeaterJugItem);
 router.patch('/heaterjug/:code/decrease', heaterJugController.decreaseHeaterJugQuantity);
 
 router.get('/ceremic', CeremicController .getCeremicItems);

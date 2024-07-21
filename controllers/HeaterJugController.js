@@ -1,4 +1,4 @@
-const HeaterJug = require('../models/HeaterJug');
+const HeaterJug = require('../models/Heaterjug');
 
 // Get all items
 exports.getHeaterJugItems = async (req, res) => {
