@@ -55,10 +55,10 @@ router.get('/ceremic/:code',CeremicController.getCeremicItemByCode);
 router.post('/ceremic', CeremicController.addCeremicItem);  // Ensure this route exists
 router.patch('/ceremic/:code/decrease', CeremicController.decreaseCeremicItemQuantity);
 
-router.get('/plastic-metal', MetalPlasticController.getMetalPlasticItems);
-router.get('/plastic-metal/:code', MetalPlasticController.getMetalPlasticItemByCode);
-router.post('/plastic-metal', MetalPlasticController.addMetalPlasticItem);  // Ensure this route exists
-router.patch('/plastic-metal/:code/decrease', MetalPlasticController.decreaseMetalPlasticQuantity);
+router.get('/metal', MetalPlasticController.getMetalPlasticItems);
+router.get('/metal/:code', MetalPlasticController.getMetalPlasticItemByCode);
+router.post('/metal', MetalPlasticController.addMetalPlasticItem);  // Ensure this route exists
+router.patch('/metal/:code/decrease', MetalPlasticController.decreaseMetalPlasticQuantity);
 
 
 router.get('/torch', TorchController .getTorchItems);
