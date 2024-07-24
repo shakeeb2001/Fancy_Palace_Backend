@@ -1,10 +1,10 @@
-const Ricecooker = require('../models/Ricecoocker');
+const Ricecooker = require('../models/Ricecooker');
 
 // Get all items
 exports.getRicecookerItems = async (req, res) => {
   try {
-    const Ricecooker = await Ricecooker.find();
-    res.json(Ricecooker);
+    const items = await Ricecooker.find();
+    res.json(items);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -13,14 +13,15 @@ exports.getRicecookerItems = async (req, res) => {
 // Get item by code
 exports.getRicecookerItemByCode = async (req, res) => {
   try {
-    const Ricecooker = await Ricecooker.findOne({ code: req.params.code });
-    if (!Ricecooker) return res.status(404).json({ message: 'Item not found' });
-    res.json(Ricecooker);
+    const item = await Ricecooker.findOne({ code: req.params.code });
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json(item);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
+// Add new item
 exports.addRicecookerItem = async (req, res) => {
   const newItem = new Ricecooker({
     name: req.body.name,
@@ -31,6 +32,7 @@ exports.addRicecookerItem = async (req, res) => {
     taggedPrice: req.body.taggedPrice,
     sellingPrice: req.body.sellingPrice
   });
+
   try {
     const savedItem = await newItem.save();
     res.status(201).json(savedItem);
@@ -54,3 +56,28 @@ exports.decreaseRicecookerQuantity = async (req, res) => {
   }
 };
 
+// Delete item by code
+exports.deleteRicecookerItem = async (req, res) => {
+  try {
+    const item = await Ricecooker.findOneAndDelete({ code: req.params.code });
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update item by code
+exports.updateRicecookerItem = async (req, res) => {
+  try {
+    const updatedItem = await Ricecooker.findOneAndUpdate(
+      { code: req.params.code },
+      req.body,
+      { new: true }
+    );
+    if (!updatedItem) return res.status(404).json({ message: 'Item not found' });
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

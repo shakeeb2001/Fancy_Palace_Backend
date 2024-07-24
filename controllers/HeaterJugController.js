@@ -21,7 +21,7 @@ exports.getHeaterJugByCode = async (req, res) => {
   }
 };
 
-// Add a new item
+// Add new item
 exports.addHeaterJugItem = async (req, res) => {
   const newItem = new HeaterJug({
     name: req.body.name,
@@ -51,6 +51,32 @@ exports.decreaseHeaterJugQuantity = async (req, res) => {
       await item.save();
     }
     res.json(item);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Delete item by code
+exports.deleteHeaterJugItem = async (req, res) => {
+  try {
+    const item = await HeaterJug.findOneAndDelete({ code: req.params.code });
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update item by code
+exports.updateHeaterJugItem = async (req, res) => {
+  try {
+    const updatedItem = await HeaterJug.findOneAndUpdate(
+      { code: req.params.code },
+      req.body,
+      { new: true }
+    );
+    if (!updatedItem) return res.status(404).json({ message: 'Item not found' });
+    res.json(updatedItem);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

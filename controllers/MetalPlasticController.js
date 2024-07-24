@@ -56,3 +56,29 @@ exports.decreaseMetalPlasticQuantity = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Delete item by code
+exports.deleteMetalPlasticItem = async (req, res) => {
+  try {
+    const item = await MetalPlastic.findOneAndDelete({ code: req.params.code });
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update item by code
+exports.updateMetalPlasticItem = async (req, res) => {
+  try {
+    const updatedItem = await MetalPlastic.findOneAndUpdate(
+      { code: req.params.code },
+      req.body,
+      { new: true }
+    );
+    if (!updatedItem) return res.status(404).json({ message: 'Item not found' });
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

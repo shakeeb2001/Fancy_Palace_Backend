@@ -55,3 +55,29 @@ exports.decreaseSoundSystemsQuantity = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// Delete item by code
+exports.deleteSoundSystemsItem = async (req, res) => {
+  try {
+    const item = await SoundSystems.findOneAndDelete({ code: req.params.code });
+    if (!item) return res.status(404).json({ message: 'Item not found' });
+    res.json({ message: 'Item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update item by code
+exports.updateSoundSystemsItem = async (req, res) => {
+  try {
+    const updatedItem = await SoundSystems.findOneAndUpdate(
+      { code: req.params.code },
+      req.body,
+      { new: true }
+    );
+    if (!updatedItem) return res.status(404).json({ message: 'Item not found' });
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
