@@ -50,10 +50,12 @@ router.get('/heaterjug/:code', heaterJugController.getHeaterJugByCode);
 router.post('/heaterjug', heaterJugController.addHeaterJugItem);
 router.patch('/heaterjug/:code/decrease', heaterJugController.decreaseHeaterJugQuantity);
 
-router.get('/ceremic', CeremicController .getCeremicItems);
-router.get('/ceremic/:code',CeremicController.getCeremicItemByCode);
-router.post('/ceremic', CeremicController.addCeremicItem);  // Ensure this route exists
+router.get('/ceremic', CeremicController.getCeremicItems);
+router.get('/ceremic/:code', CeremicController.getCeremicItemByCode);
+router.post('/ceremic', CeremicController.addCeremicItem);
 router.patch('/ceremic/:code/decrease', CeremicController.decreaseCeremicItemQuantity);
+router.put('/ceremic/:code', CeremicController.updateCeremicItem);
+router.delete('/ceremic/:code', CeremicController.deleteCeremicItem);
 
 router.get('/metal', MetalPlasticController.getMetalPlasticItems);
 router.get('/metal/:code', MetalPlasticController.getMetalPlasticItemByCode);
