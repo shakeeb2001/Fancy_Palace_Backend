@@ -1,4 +1,4 @@
-const Ricecooker = require('../models/Ricecooker');
+const Ricecooker = require('../models/Ricecoocker');
 
 // Get all items
 exports.getRicecookerItems = async (req, res) => {
